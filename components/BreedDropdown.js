@@ -8,15 +8,20 @@ function BreedDropdown(props) {
     const currentBreed = useSelector((state) => state.cats.breed);
 
     useEffect(() => {
-        dispatch(fetchBreeds());
+        // fetch breeds only once every site refresh and not on route change
+        if (breeds.length < 1) {
+            dispatch(fetchBreeds());
+        }
     }, []);
+
+    let defaultValue = currentBreed || "";
 
     return (
         <span>
             <select
                 className="btn btn-secondary m-2"
                 onChange={props.onChange}
-                defaultValue={currentBreed}
+                value={defaultValue}
             >
                 <option>Select Breed</option>
                 {breeds.map((breed) => {

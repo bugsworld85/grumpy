@@ -1,17 +1,25 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BreedDropdown from "../components/BreedDropdown";
 import CatList from "../components/CatList";
 import { fetchCats } from "../redux/actions/cat.actions";
+
 import styles from "../styles/Home.module.scss";
 
-export default function Home() {
+function Home() {
     const dispatch = useDispatch();
+
+    const error = useSelector((state) => state.cats.error);
 
     const handleBreedChange = (e) => {
         if (e.target.value) {
             dispatch(fetchCats(e.target.value));
         }
     };
+
+    useEffect(() => {
+        dispatch(fetchCats(null, 0, false));
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -36,9 +44,15 @@ export default function Home() {
                 </p>
 
                 <div>
-                    <CatList />
+                    {error === "" ? (
+                        <CatList />
+                    ) : (
+                        <span className="text-danger">{error}</span>
+                    )}
                 </div>
             </main>
         </div>
     );
 }
+
+export default Home;

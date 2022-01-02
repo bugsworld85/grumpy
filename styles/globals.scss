@@ -4,12 +4,8 @@ img{
     max-width: 100%;
 }
 
-.gallery{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    .card{
-        max-width: calc((100% / 4) - 10px);
-        margin: 5px;
+.swal-footer{
+    .swal-button-container{
+        text-align: center;
     }
 }
